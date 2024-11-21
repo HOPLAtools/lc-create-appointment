@@ -11,8 +11,29 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
+import { handlePostRequest } from "./handlers/requests";
+
+/**
+ * Default export object containing the fetch handler.
+ * 
+ * @property fetch - Asynchronous function to handle incoming requests.
+ * 
+ * @param request - The incoming request object.
+ * @param env - The environment object containing bindings and other configurations.
+ * 
+ * @returns A promise that resolves to a Response object.
+ * 
+ * The fetch function handles POST requests by delegating to the handlePostRequest function.
+ * For other request methods, it returns a JSON response with a "Hello World!" message.
+ */
 export default {
-	async fetch(request, env, ctx): Promise<Response> {
-		return new Response('Hello World!');
+	async fetch(request: Request, env: Env): Promise<Response> {
+		if (request.method === 'POST') {
+			return handlePostRequest(request, env);
+		}
+
+		return new Response(JSON.stringify({ message: 'Hello World!' }), {
+			headers: { 'Content-Type': 'application/json' },
+		});
 	},
 } satisfies ExportedHandler<Env>;
