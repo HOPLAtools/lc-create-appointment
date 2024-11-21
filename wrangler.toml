@@ -6,3 +6,11 @@ compatibility_flags = ["nodejs_compat"]
 
 [vars]
 LEADCONNECTOR_URL="https://services.leadconnectorhq.com"
+
+[[routes]]
+pattern = "https://api.thrue.ai/lc/create-appointment/*"
+zone_name = "thrue.ai"
+
+[[routes]]
+pattern = "https://api.thrue.ai/lc-create-appointment/*"
+zone_name = "thrue.ai"
